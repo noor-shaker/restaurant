@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequest;
-use App\Models\Category;
+use App\Models\Meal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -21,75 +21,75 @@ class DashboardController extends Controller
 
     public function index(){
 
-        $categories = Category::paginate(2); 
-        // $categories = Category::all();  // Get all data
-        return view('pages.category.index',compact('categories'));
+        $meals = Meal::paginate(2); 
+        // $meals = Meal::all();  // Get all data
+        return view('pages.meal.index',compact('meals'));
 
     }
 
     public function create(){
-        return view('pages.category.create');
+        return view('pages.meal.create');
     }
     
     public function insert(Request $request){
 
         $this->validate($request,['image'=>'file|required','name'=>'string|required','description'=>'string|required','price'=>'integer|required']);
 
-        $category = new Category;
+        $meal = new Meal;
 
         if($request->file('image')){
             $image = $request->file('image');
             $filename = time(). '_' . $image->getClientOriginalName(); 
             $filename = str_replace(' ','-', $filename); 
-            $image->move('images/category', $filename); 
-            $category->image = 'category'.'/'. $filename; 
+            $image->move('images/meal', $filename); 
+            $meal->image = 'meal'.'/'. $filename; 
         }
 
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->price=$request->price;
+        $meal->name = $request->name;
+        $meal->description = $request->description;
+        $meal->price=$request->price;
 
-        $category->save();
-        return redirect()->route('category.index');
+        $meal->save();
+        return redirect()->route('index');
     }
 
     public function edit($id){
-        $category=Category::find($id);
-        return view('pages.category.edit',compact('category'));
+        $meal=Meal::find($id);
+        return view('pages.meal.edit',compact('meal'));
     }
 
     public function update(Request $request,$id){
 
         $this->validate($request,['name'=>'string|required','description'=>'string|required','price'=>'integer|required']);
 
-        $category=Category::find($id);
+        $meal=Meal::find($id);
 
         if($request->file('image')){
             $image = $request->file('image');
             $filename = time(). '_' . $image->getClientOriginalName(); 
             $filename = str_replace(' ','-', $filename); 
-            $image->move('images/category', $filename); 
-            $category->image = 'category'.'/'. $filename; 
+            $image->move('images/meal', $filename); 
+            $meal->image = 'meal'.'/'. $filename; 
         }
 
-        $category->name=$request->name;
-        $category->description=$request->description;
-        $category->price=$request->price;
+        $meal->name=$request->name;
+        $meal->description=$request->description;
+        $meal->price=$request->price;
 
-        $category->update();
-        return redirect()->route('category.index');
+        $meal->update();
+        return redirect()->route('index');
     }  
 
     public function remove($id){
-        $category=Category::find($id);
+        $meal=Meal::find($id);
 
-        $path = 'images/'.$category->image;
+        $path = 'images/'.$meal->image;
         if(File::exists($path)){
             File::delete($path);
         }
 
-        $category->delete();
-        return redirect()->route('category.index');
+        $meal->delete();
+        return redirect()->route('index');
     }
 
 }

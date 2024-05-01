@@ -6,63 +6,60 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-primary">
-                    <!-- form start -->
+                    <!-- form  -->
                     {{-- طلب للداتا بيس --}}
-                    <form method="POST" action="{{ route('category.update', ['id' => $category->id]) }}"
-                        enctype="multipart/form-data">
-                        @method('put')
+                    <form method="POST" action="{{ route('insert') }}" enctype="multipart/form-data">
                         @csrf {{-- للاضافة الى قاعدة البيانات --}}
 
                         <div class="card-body">
-
                             <div class="form-group">
-                                @if ($category->image > 0)
-                                    <img src="{{ asset('images/' . $category->image) }}" width="100vh" alt="">
-                                @else
-                                    <img src="{{ asset('images/default.jpg') }}" width="100vh" alt="">
-                                @endif
-                                <input type="file" class="form-control" placeholder="Upload the image" name="image">
+                                <label for="image">Image</label>
+                                <img src="" alt="">
+                                <input type="file" class="form-control" id="image" placeholder="Upload the image"
+                                    name="image">
                                 @error('image')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="name"> Name</label>
+                                <label for="name">Name </label>
                                 <input type="text" class="form-control" id="name"
-                                    placeholder="enter the name of the meal" name="name" value="{{ $category->name }}">
+                                    placeholder="enter the name of the meal " name="name">
                                 @error('name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
-
                             <div class="form-group">
                                 <label for="description">Description </label>
-                                <textarea name="description" id="description" cols="10" rows="4" class="form-control">{{ $category->description }}</textarea>
+                                <textarea name="description" id="description" cols="10" rows="4" class="form-control"></textarea>
                                 @error('description')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
-
                             <div class="form-group">
                                 <label for="price"> Price </label>
-                                <input type="number" class="form-control" id="price" placeholder="enter the price "
-                                    name="price" value="{{ $category->price }}">
+                                <input type="number" class="form-control" id="price" placeholder="enter the price"
+                                    name="price">
                                 @error('price')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
                 </div>
+
                 <div class="card-footer">
-                    <button type="submit" class="btn"
-                        style="background: orangered;color:#fff;letter-spacing: 2px">Edit</button>
+                    <button type="submit" class="btn "
+                        style="background: orangered;color:#fff;letter-spacing: 2px">Create</button>
                 </div>
                 </form>
             </div>
+
         </div>
+
+
     </div>
     </div>
 @endsection

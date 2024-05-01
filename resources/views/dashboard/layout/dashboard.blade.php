@@ -70,7 +70,7 @@
                                     class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span></a>
                             <ul class="collapse list-unstyled" id="dashboard">
                                 <li>
-                                    <a href="{{ route('category.index') }}">> <span>Category</span></a>
+                                    <a href="{{ route('index') }}">> <span>Menu</span></a>
                                 </li>
                             </ul>
                         </li>

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Meal;
 use Illuminate\Http\Request;
 
 class AjaxController extends Controller
 {
     public function search(Request $request) {
         if($request->ajax()){
-            $data = Category::where('name','LIKE','%'. $request->name .'%')->get();
+            $data = Meal::where('name','LIKE','%'. $request->name .'%')->get();
             $result = "";
             if(count($data) > 0){
                 $result = "<ul>";
@@ -22,6 +22,6 @@ class AjaxController extends Controller
             }
             return $result;
         }
-        return view("pages.category.search");
+        return view("pages.meal.search");
     }
 }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Meal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
-class CategoryAPIController extends Controller
+class MealAPIController extends Controller
 {
     public function __construct()
     {
@@ -15,31 +15,31 @@ class CategoryAPIController extends Controller
 
     public function index(){
 
-        $categories = Category::all(); // get informations from database
+        $meals = Meal::all(); // get informations from database
         
-        return response()->json(["message" => "success","categories" => $categories]);
+        return response()->json(["message" => "success","meals" => $meals]);
     }
 
     public function insert(Request $request){
         
         $this->validate($request,['image'=>'file|required','name'=>'string|required','description'=>'string|required','price'=>'integer|required']);
 
-        $category = new Category;
+        $meal = new Meal;
 
         if($request->file('image')){
             $image = $request->file('image');
             $filename = time(). '_' . $image->getClientOriginalName();
             $filename = str_replace(' ','-', $filename); 
-            $image->move('images/category', $filename); 
-            $category->image = 'category'.'/'. $filename; 
+            $image->move('images/meal', $filename); 
+            $meal->image = 'meal'.'/'. $filename; 
         }
 
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->price=$request->price;
+        $meal->name = $request->name;
+        $meal->description = $request->description;
+        $meal->price=$request->price;
 
-        $category->save();
-        return response()->json(['message'=>'success','categories'=>$category],200);
+        $meal->save();
+        return response()->json(['message'=>'success','meals'=>$meal],200);
         
     }
 
@@ -47,38 +47,38 @@ class CategoryAPIController extends Controller
 
         $this->validate($request,['image'=>'file|required','name'=>'string|required','description'=>'string|required','price'=>'integer|required']); 
 
-        $category=Category::find($id);
+        $meal=Meal::find($id);
 
         if($request->file('image')){
             $image = $request->file('image');
             $filename = time(). '_' . $image->getClientOriginalName(); 
             $filename = str_replace(' ','-', $filename); 
-            $image->move('images/category', $filename); 
-            $category->image = 'category'.'/'. $filename; 
+            $image->move('images/meal', $filename); 
+            $meal->image = 'meal'.'/'. $filename; 
         }
 
-        $category->name=$request->name;
-        $category->description=$request->description;
-        $category->price=$request->price;
+        $meal->name=$request->name;
+        $meal->description=$request->description;
+        $meal->price=$request->price;
 
-        $category->update();
-        return response()->json(['message'=>'success','category'=>$category],200); // 200 status
+        $meal->update();
+        return response()->json(['message'=>'success','meal'=>$meal],200); // 200 status
 
     }  
 
     public function remove($id){
 
-        $category=Category::find($id);
+        $meal=Meal::find($id);
         
-        $path = 'images/'.$category->image;
+        $path = 'images/'.$meal->image;
         if(File::exists($path)){
             File::delete($path);
         }
 
-        if($category != null || $category != ''){
+        if($meal != null || $meal != ''){
 
-            $category->delete();
-            return response()->json(['message'=>'success','category'=>$category]);
+            $meal->delete();
+            return response()->json(['message'=>'success','meal'=>$meal]);
 
         }else{
             return response()->json(['message'=>'fail'],404); // 404 not found

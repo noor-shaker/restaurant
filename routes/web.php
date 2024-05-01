@@ -10,17 +10,17 @@ Route::get('/', [MainController::class,'main']);
 
 Route::get('/dashboard',[DashboardController::class,'dashboard']);
 
-Route::get('/dashboard/index', [DashboardController::class,'index'])->name('category.index');
+Route::get('/dashboard/index', [DashboardController::class,'index'])->name('index');
 
-Route::get('/dashboard/create',[DashboardController::class,'create'])->name('category.create');
+Route::get('/dashboard/create',[DashboardController::class,'create'])->name('create');
 
-Route::post('/dashboard/insert',[DashboardController::class,'insert'])->name('category.insert');
+Route::post('/dashboard/insert',[DashboardController::class,'insert'])->name('insert');
 
-Route::get('/dashboard/edit/{id}',[DashboardController::class,'edit'])->name('category.edit');
+Route::get('/dashboard/edit/{id}',[DashboardController::class,'edit'])->name('edit');
 
-Route::put('/dashboard/update/{id}',[DashboardController::class,'update'])->name('category.update');
+Route::put('/dashboard/update/{id}',[DashboardController::class,'update'])->name('update');
 
-Route::delete('/dashboard/remove/{id}',[DashboardController::class,'remove'])->name('category.remove');
+Route::delete('/dashboard/remove/{id}',[DashboardController::class,'remove'])->name('remove');
 
 Route::get('/search',[AjaxController::class,'search'])->name('search');
 

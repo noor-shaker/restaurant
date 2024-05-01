@@ -356,20 +356,20 @@
             <div class="filters-content">
                 <div class="row grid">
                     {{-- test --}}
-                    @foreach ($categories as $food)
+                    @foreach ($meals as $meal)
                         <div class="col-sm-6 col-lg-4 all ">
                             <div class="box">
                                 <div>
                                     <div class="img-box">
-                                        <img src="{{ asset('images/' . $food->image) }}" alt="" />
+                                        <img src="{{ asset('images/' . $meal->image) }}" alt="" />
                                     </div>
                                     <div class="detail-box">
-                                        <h5>{{ $food->name }}</h5>
+                                        <h5>{{ $meal->name }}</h5>
                                         <p>
-                                            {{ $food->description }}
+                                            {{ $meal->description }}
                                         </p>
                                         <div class="options">
-                                            <h6>${{ $food->price }}</h6>
+                                            <h6>${{ $meal->price }}</h6>
                                             <a href="">
                                                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                                                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
